@@ -1,9 +1,55 @@
 #!/usr/bin/env ruby
 
-[ 
-  "git fetch --all",
-  "git reset --hard FETCH_HEAD",
-  "git clean -df",
-].each do |cmd|
-  system cmd
+require "colorize"
+
+def check_latest
+  `git status -uno`
 end
+
+def fetch
+  [ 
+    "git reset --hard FETCH_HEAD",
+    "git clean -df",
+  ].each do |cmd|
+    system cmd
+  end
+end
+
+def pre_requisite 
+  system "git fetch --all"
+end
+
+def help
+  puts
+  puts "[f][fetch] ... fetch latest commit"
+  puts "[compare][c] ... compare to remote branch"
+  puts
+  abort
+end
+
+def alert
+  unless check_latest.include? "up-to-date"
+    (0..20).each do 
+      `open /System/Library/Sounds/Sosumi.aif` 
+    end  
+  end
+end
+
+cmd = ARGV[0]
+
+help if ARGV.size < 1
+
+case cmd
+when "f", "fetch"
+  fetch
+when "c", "compare"
+  alert
+when "c!", "compare!"
+  def ralert
+    alert
+    sleep 60
+    ralert
+  end 
+  ralert
+end
+
