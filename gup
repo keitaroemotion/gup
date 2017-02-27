@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-require "colorize"
-
 def check_latest
   `git status -uno`
 end
