@@ -28,7 +28,8 @@ end
 def alert
   unless check_latest.include? "up-to-date"
     (0..20).each do 
-      `open /System/Library/Sounds/Sosumi.aif` 
+      `open /System/Library/Sounds/Sosumi.aiff` 
+       sleep 0.5
     end  
   end
 end
