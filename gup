@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+[ 
+  "git fetch --all",
+  "git reset --hard FETCH_HEAD",
+  "git clean -df",
+].each do |cmd|
+  system cmd
+end
